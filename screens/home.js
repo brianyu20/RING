@@ -9,7 +9,7 @@ export default function HomeScreen({navigation}) {
   }
   return(
     <View style={styles.container}>
-      <Text style={styles.title}>THE RING</Text>
+      <Text style={styles.header}>The Ring</Text>
       <Button title = 'Start inputting Data' onPress={pressHandler}/>
     </View>
   )
@@ -18,8 +18,12 @@ export default function HomeScreen({navigation}) {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#ffe4e1',
       alignItems: 'center',
       justifyContent: 'space-around',
+    },
+    header : {
+      fontFamily : 'Courier',
+      fontSize: 50,
     }
   });

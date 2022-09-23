@@ -31,7 +31,7 @@ export default function InputData({navigation}) {
     
     const putOne = () => {
       if (age === '' || zip === '' || alc === '' || weed === '' || snow === ''){
-        alert('all fields are required');
+        alert('All fields are required');
         return;
       }
       axios.post('http://localhost:4000/postOne', {age, zip, alc, weed, snow})
@@ -52,7 +52,7 @@ export default function InputData({navigation}) {
 
     return(
       <View style={styles.container}>
-        <Text style={{fontSize: 30, color: '#000000'}}>Input your data</Text>
+        <Text style={{fontSize: 20, color: '#000000'}}>Input your data</Text>
         {/* <Button title = 'testGetAll' onPress = {getAllData} />
         <Button title = 'testPutOne' onPress={putOne}/> */}
         <View style={{ marginHorizontal: 24 }}>
@@ -84,7 +84,7 @@ export default function InputData({navigation}) {
     const styles = StyleSheet.create({
       container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#ffe4e1',
         alignItems: 'center',
         justifyContent: 'space-around',
       },
@@ -92,6 +92,7 @@ export default function InputData({navigation}) {
         borderBottomWidth: 0.5,
         height: 48,
         borderBottomColor: '#000000',
-        marginBottom: 30
+        marginBottom: 5,
+        alignItems: 'center'
       }
     });
