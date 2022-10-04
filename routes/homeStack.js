@@ -2,6 +2,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import  HomeScreen  from '../screens/home';
 import  InputData  from '../screens/inputData';
+import showData from '../screens/showData';
 
 const screens = {
     //need key value pairs for each particular screen
@@ -11,6 +12,9 @@ const screens = {
     },
     InputData: {
         screen: InputData
+    },
+    showData: {
+        screen: showData
     }
 }
 //configuring of screens is done

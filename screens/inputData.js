@@ -34,7 +34,7 @@ export default function InputData({navigation}) {
         alert('All fields are required');
         return;
       }
-      axios.post('http://localhost:4000/postOne', {age, zip, alc, weed, snow})
+      axios.post('http://localhost:4000/usage', {age, zip, alc, weed, snow})
       .then(function(response){
         //console.log(response);
         //console.log("age" + testData.age);
@@ -45,9 +45,12 @@ export default function InputData({navigation}) {
         console.log(error);
       });
       
+      
     }
 
-
+    const pressHandler = () => {
+      navigation.navigate('showData')
+    }
 //write().then(console.log).catch(console.error).finally(() => client.close());
 
     return(
@@ -76,7 +79,7 @@ export default function InputData({navigation}) {
           <TextInput style = {styles.inputBox} value = {snow} onChangeText = {text => setSnow(text)} />
         </View>
         <Button title = 'Submit Data' onPress={putOne} />
-        <Button title = 'Go to NYC aggregate Data'/> 
+        <Button title = 'Go to NYC aggregate Data' onPress={pressHandler}/> 
       </View>
     )
   }

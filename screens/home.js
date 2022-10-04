@@ -23,7 +23,7 @@ export default function HomeScreen({navigation}) {
       justifyContent: 'space-around',
     },
     header : {
-      fontFamily : 'Courier',
+      //fontFamily : 'Courier',
       fontSize: 50,
     }
   });
