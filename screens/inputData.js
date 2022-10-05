@@ -51,7 +51,7 @@ export default function InputData({navigation}) {
     const pressHandler = () => {
       navigation.navigate('showData')
     } 
-//write().then(console.log).catch(console.error).finally(() => client.close()); hahahahah
+//write().then(console.log).catch(console.error).finally(() => client.close()); hahahahah wtf man 
 
     return(
       <View style={styles.container}>
