@@ -16,33 +16,47 @@ export default function showData({navigation}) {
   const pressHandler = () => {
       navigation.navigate('showData')
   }
-  const usages = []
+  let display = false
+  let data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
+  console.log("data before processing: " + data)
+  let temp = [100, 0, 0, 0, 100, 0, 0, 0, 100, 0,]
   const show = () => {
     axios.get('http://localhost:4000/usage')
     .then(resp => {
-        usages = resp.data
-        console.log(resp.data)
-        
+        let usages = resp.data
+        //console.log(resp.data)
+        //to see the object structure
+        for (let i = 0; i < usages.length; i++){
+          for (const key in usages[i]){
+            console.log(`for ${key} : ${usages[i][key]} `)
+          }
+        }
+
+        //first trying to group by age and snow usage
+        for (let i = 0; i < usages.length; i++){
+          if (typeof usages[i]["age"] ==  "string" && usages[i]["age"] > 20 && usages[i]["age"] < 30){
+            //console.log("entering?")
+            let currAge = parseInt(usages[i]["age"], 10);
+            let currIndex = currAge % 20;
+            data[currIndex] += parseInt(usages[i]["snow"], 10)
+          }
+        }
+        display = true
+        console.log("data: " + data)
 
     })
   }
+  //show()
   return(
     <View>
   <Text>Bezier Line Chart</Text>
   <Button title = "show data" onPress={show} />
   <LineChart
     data={{
-      labels: ["January", "February", "March", "April", "May", "June"],
+      labels: ["20", "21", "22", "23", "24", "25", "26", "27", "28", "29"],
       datasets: [
         {
-          data: [
-            3,
-            3,
-            3,
-            3,
-            3,
-            3
-          ]
+          data: display ? data : temp
         }
       ]
     }}
