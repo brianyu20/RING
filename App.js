@@ -3,11 +3,14 @@ import { StyleSheet, Text, View } from 'react-native';
 import Navigator from './routes/homeStack';
 import HomeScreen from './screens/home';
 import InputData from './screens/inputData';
+import store from './src/app/store'
+import { Provider } from 'react-redux'
 
 export default function App() {
   return (
-    <Navigator />
-    
+    <Provider store={store}>
+      <Navigator />
+    </Provider>
   );
 }
 

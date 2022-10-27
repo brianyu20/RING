@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button, TextInput, StyleSheet, Dimensions } from 'react-native';
 import axios from 'axios';
+import { useDispatch, useSelector, useState } from 'react-redux'
+import { selectedData, setData } from "../src/app/dataSliceReducer"
+import { store } from "../src/app/store"
 import {
     LineChart,
     BarChart,
@@ -12,14 +15,19 @@ import {
   } from "react-native-chart-kit";
 
 
+
 export default function showData({navigation}) {
+  const dispatch = useDispatch()
+  const reduxData = useSelector(selectedData)
+  //const [reduxData] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]);
+  console.log("getting to useSelector, reduxData is: " + reduxData)
   const pressHandler = () => {
       navigation.navigate('showData')
   }
   let display = false
   let data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
   console.log("data before processing: " + data)
-  let temp = [100, 0, 0, 0, 100, 0, 0, 0, 100, 0,]
+  let temp = [100, 50, 0, 30, 100, 0, 0, 0, 100, 0,]
   const show = () => {
     axios.get('http://localhost:4000/usage')
     .then(resp => {
@@ -43,6 +51,8 @@ export default function showData({navigation}) {
         }
         display = true
         console.log("data: " + data)
+        dispatch(setData(data))
+        
 
     })
   }
@@ -56,7 +66,8 @@ export default function showData({navigation}) {
       labels: ["20", "21", "22", "23", "24", "25", "26", "27", "28", "29"],
       datasets: [
         {
-          data: display ? data : temp
+          data: reduxData
+         
         }
       ]
     }}
