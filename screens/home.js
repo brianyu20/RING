@@ -9,15 +9,11 @@ export default function HomeScreen({navigation}) {
   const pressHandler = () => {
       navigation.navigate('InputData')
   }
-  const reduxTry = () =>{
-    dispatch( incrementTime())
-    //console.log(state.startTime)
-  }
+
   return(
     <View style={styles.container}>
       <Text style={styles.header}>The Ring</Text>
       <Button title = 'Start inputting Data' onPress={pressHandler}/>
-      <Button title = "redux" onPress = {reduxTry} />
     </View>
   )
 }

@@ -3,6 +3,9 @@ import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button, TextInput, StyleSheet } from 'react-native';
 import axios from 'axios';
+import { useDispatch, useSelector, } from 'react-redux'
+import { allData, setData, setSnowData } from "../src/app/dataSliceReducer"
+import { store } from "../src/app/store"
 
 export default function InputData({navigation}) {
     const [age, setAge] = useState("");
@@ -10,25 +13,8 @@ export default function InputData({navigation}) {
     const [alc, setAlc] = useState("");
     const [weed, setWeed] = useState("");
     const [snow, setSnow] = useState("");
+    const dispatch = useDispatch()
 
-    const testData = {
-        age: 25,
-        zip: 10017,
-        alc: 5,
-        weed: 3,
-        snow: 3,
-    }
-
-    const getAllData = () => {
-        axios.get('http://localhost:4000/getAll')
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-    
     const putOne = () => {
       if (age === '' || zip === '' || alc === '' || weed === '' || snow === ''){
         alert('All fields are required');
@@ -40,18 +26,28 @@ export default function InputData({navigation}) {
         //console.log("age" + testData.age);
         console.log(response);
         alert('Data is submitted sucessfully');
+        //dispatching it state right away 
+        processData();
       })
       .catch(function(error){
         console.log(error);
       });
-      
-      
+    }
+
+    const processData = () => {
+      axios.get('http://localhost:4000/usage')
+      .then(resp => {
+          let usages = resp.data
+          dispatch(setData(usages))
+      })
+      .catch(function(error){
+        console.log(error)
+      })
     }
 
     const pressHandler = () => {
       navigation.navigate('showData')
     }
-//write().then(console.log).catch(console.error).finally(() => client.close());
 
     return(
       <View style={styles.container}>
@@ -79,6 +75,7 @@ export default function InputData({navigation}) {
           <TextInput style = {styles.inputBox} value = {snow} onChangeText = {text => setSnow(text)} />
         </View>
         <Button title = 'Submit Data' onPress={putOne} />
+        <Button title = 'Redux Bypass' onPress={processData} />
         <Button title = 'Go to NYC aggregate Data' onPress={pressHandler}/> 
       </View>
     )
