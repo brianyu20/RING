@@ -27,42 +27,31 @@ export default function showData({navigation}) {
   console.log("data before processing: " + currShowdata)
 
   const showSnow = () => {
-    console.log("got to showSnow")
     let snowData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
-      for (let i = 0; i < currAllData.length; i++){
-        if (typeof currAllData[i]["age"] ==  "string" && currAllData[i]["age"] > 20 && currAllData[i]["age"] < 30){
-          let currAge = parseInt(currAllData[i]["age"], 10);
-          let currIndex = currAge % 20;
-          snowData[currIndex] += parseInt(currAllData[i]["snow"], 10)
-        }
-      }
+    process(currAllData, snowData, "snow")
     dispatch(setSelectedData(snowData))
   }
 
   const showAlc = () => {
-    console.log("got to showSnow")
     let alcData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
-      for (let i = 0; i < currAllData.length; i++){
-        if (typeof currAllData[i]["age"] ==  "string" && currAllData[i]["age"] > 20 && currAllData[i]["age"] < 30){
-          let currAge = parseInt(currAllData[i]["age"], 10);
-          let currIndex = currAge % 20;
-          alcData[currIndex] += parseInt(currAllData[i]["alc"], 10)
-        }
-      }
+    process(currAllData, alcData, "alc")
     dispatch(setSelectedData(alcData))
   }
 
   const showWeed = () => {
-    console.log("got to showSnow")
     let weedData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
-      for (let i = 0; i < currAllData.length; i++){
-        if (typeof currAllData[i]["age"] ==  "string" && currAllData[i]["age"] > 20 && currAllData[i]["age"] < 30){
-          let currAge = parseInt(currAllData[i]["age"], 10);
-          let currIndex = currAge % 20;
-          weedData[currIndex] += parseInt(currAllData[i]["weed"], 10)
-        }
-      }
+    process(currAllData, weedData, "weed")
     dispatch(setSelectedData(weedData))
+  }
+
+  const process = (allData, selectData, type) => {
+    for (let i = 0; i < allData.length; i++){
+      if (typeof allData[i]["age"] ==  "string" && allData[i]["age"] > 20 && allData[i]["age"] < 30){
+        let currAge = parseInt(allData[i]["age"], 10);
+        let currIndex = currAge % 20;
+        selectData[currIndex] += parseInt(allData[i][type], 10)
+      }
+    }
   }
   
   return(
