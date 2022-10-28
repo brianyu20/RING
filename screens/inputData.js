@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button, TextInput, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { useDispatch, useSelector, } from 'react-redux'
 import { allData, setData, setSnowData } from "../src/app/dataSliceReducer"
-import { store } from "../src/app/store"
+//import { store } from "../src/app/store"
 
 export default function InputData({navigation}) {
     const [age, setAge] = useState("");
@@ -52,8 +51,6 @@ export default function InputData({navigation}) {
     return(
       <View style={styles.container}>
         <Text style={{fontSize: 20, color: '#000000'}}>Input your data</Text>
-        {/* <Button title = 'testGetAll' onPress = {getAllData} />
-        <Button title = 'testPutOne' onPress={putOne}/> */}
         <View style={{ marginHorizontal: 24 }}>
           <Text style = {{fontSize: 16, color : '#8e93a1'}}> Age </Text>
           <TextInput style = {styles.inputBox} value = {age} onChangeText = {text => setAge(text)} />

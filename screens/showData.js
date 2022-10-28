@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button, TextInput, StyleSheet, Dimensions } from 'react-native';
-import axios from 'axios';
 import { useDispatch, useSelector, } from 'react-redux'
-import { allData, setData, alcData, weedData, snowData, setSelectedData, getSelectedData } from "../src/app/dataSliceReducer"
-import { store } from "../src/app/store"
+import { allData, setSelectedData, getSelectedData } from "../src/app/dataSliceReducer"
 import {
     LineChart,
     BarChart,
@@ -20,11 +17,11 @@ export default function showData({navigation}) {
   let showedWeed = false;
   let showedSnow = false;
   let currAllData = useSelector(allData)
+  let currShowdata = useSelector(getSelectedData)
+
   const pressHandler = () => {
       navigation.navigate('showData')
   }
-  let currShowdata = useSelector(getSelectedData)
-  console.log("data before processing: " + currShowdata)
 
   const showSnow = () => {
     let snowData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
