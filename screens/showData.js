@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, Button, TextInput, StyleSheet, Dimensions } from 'react-native';
 import { useDispatch, useSelector, } from 'react-redux'
-import { allData, setSelectedData, getSelectedData } from "../src/app/dataSliceReducer"
-import {
-    LineChart,
-    BarChart,
-    PieChart,
-    ProgressChart,
-    ContributionGraph,
-    StackedBarChart
-  } from "react-native-chart-kit";
+import { allData, setSelectedBezierData, setSelectedPieData, getSelectedData, getSelectedPieData } from "../src/app/dataSliceReducer"
+import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart } from "react-native-chart-kit";
 
 export default function showData({navigation}) {
   const dispatch = useDispatch()
@@ -18,6 +11,90 @@ export default function showData({navigation}) {
   let showedSnow = false;
   let currAllData = useSelector(allData)
   let currShowdata = useSelector(getSelectedData)
+  let currShowPieData = useSelector(getSelectedPieData)
+  const chartConfig = {
+    backgroundGradientFrom: "red",
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientTo: "red",
+    backgroundGradientToOpacity: 0.5,
+    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    strokeWidth: 2, // optional, default 3
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false // optional
+  };
+  let pieDefault = [
+    {
+        name: "20", 
+        population: 0, 
+        color: "rgba(131, 167, 234, 1)", 
+        legendFontColor: "#7F7F7F", 
+        legendFontSize: 15
+    },
+    {
+        name: "21", 
+        population: 0, 
+        color: "#F00", 
+        legendFontColor: "#7F7F7F", 
+        legendFontSize: 15
+    },
+    {
+        name: "22", 
+        population: 0, 
+        color: "red", 
+        legendFontColor: "#7F7F7F", 
+        legendFontSize: 15
+    },
+    {
+        name: "23", 
+        population: 0, 
+        color: "#ffffff", 
+        legendFontColor: "#7F7F7F", 
+        legendFontSize: 15
+    },
+    {
+        name: "24", 
+        population: 0, 
+        color: "rgba(131, 167, 234, 1)", 
+        legendFontColor: "#7F7F7F", 
+        legendFontSize: 15
+    },
+    {
+        name: "25", 
+        population: 0, 
+        color: "#F00", 
+        legendFontColor: "#7F7F7F", 
+        legendFontSize: 15
+    },
+    {
+        name: "26", 
+        population: 0, 
+        color: "rgba(131, 167, 234, 1)", 
+        legendFontColor: "#7F7F7F", 
+        legendFontSize: 15
+    },
+    {
+        name: "27", 
+        population: 0, 
+        color: "red", 
+        legendFontColor: "#7F7F7F", 
+        legendFontSize: 15
+    },
+    {
+        name: "28", 
+        population: 0, 
+        color: "rgba(131, 167, 234, 1)", 
+        legendFontColor: "#7F7F7F", 
+        legendFontSize: 15
+    },
+    {
+        name: "29", 
+        population: 0, 
+        color: "#F00", 
+        legendFontColor: "#7F7F7F", 
+        legendFontSize: 15
+    },
+
+  ]
 
   const pressHandler = () => {
       navigation.navigate('showData')
@@ -25,32 +102,69 @@ export default function showData({navigation}) {
 
   const showSnow = () => {
     let snowData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
-    process(currAllData, snowData, "snow")
-    dispatch(setSelectedData(snowData))
+    let snowPieData = pieDefault
+    console.log("here")
+    processBezier(currAllData, snowData, "snow")
+    processPie(currAllData, snowPieData, "snow")
+    for (let i = 0; i < snowPieData.length; i++){
+      for (var key in snowPieData[i]){
+        console.log("key: " + key + " value: " + snowPieData[i][key])
+      }
+    }
+    dispatch(setSelectedBezierData(snowData))
+    dispatch(setSelectedPieData(snowPieData))
   }
+
 
   const showAlc = () => {
     let alcData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
-    process(currAllData, alcData, "alc")
-    dispatch(setSelectedData(alcData))
+    let alcPieData = pieDefault
+    processBezier(currAllData, alcData, "alc")
+    processPie(currAllData, alcPieData, "alc")
+    dispatch(setSelectedBezierData(alcData))
+    dispatch(setSelectedPieData(alcPieData))
   }
 
   const showWeed = () => {
     let weedData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
-    process(currAllData, weedData, "weed")
-    dispatch(setSelectedData(weedData))
+    let weedPieData = pieDefault
+    processBezier(currAllData, weedData, "weed")
+    processPie(currAllData, weedPieData, "weed")
+    dispatch(setSelectedBezierData(weedData))
+    dispatch(setSelectedPieData(weedPieData))
   }
 
-  const process = (allData, selectData, type) => {
+  const processBezier = (allData, selectData, type) => {
     for (let i = 0; i < allData.length; i++){
-      if (typeof allData[i]["age"] ==  "string" && allData[i]["age"] > 20 && allData[i]["age"] < 30){
+      if (typeof allData[i]["age"] ==  "string" && parseInt(allData[i]["age"]) >= 20 && parseInt(allData[i]["age"]) < 30){
         let currAge = parseInt(allData[i]["age"], 10);
         let currIndex = currAge % 20;
         selectData[currIndex] += parseInt(allData[i][type], 10)
       }
     }
   }
-  
+
+  const processPie = (allData, selectPieData, type) => {
+    for (let i = 0; i < allData.length; i++){
+      if (typeof allData[i]["age"] ==  "string" && allData[i]["age"] > 20 && allData[i]["age"] < 30){
+        //console.log("age in string: " + allData[i]["age"])
+        let currAge = parseInt(allData[i]["age"], 10)
+        let currIndex = currAge % 20;
+        console.log("currAge: " + currAge)
+        selectPieData[currIndex]["population"] += parseInt(allData[i][type])
+        // if (!(currAge in selectPieData)){
+        //   console.log("first time seeing age: " + currAge)
+        //   selectPieData[currAge] = parseInt(allData[i][type], 10)
+        // }
+        // else{
+        //   console.log("not the first time seeing age: " + currAge)
+        //   selectPieData[currAge] += parseInt(allData[i][type], 10)
+        // }
+      }
+    }
+    // 
+  }
+
   return(
     <View>
       <Text>Click to show data</Text>
@@ -94,6 +208,17 @@ export default function showData({navigation}) {
           borderRadius: 16
         }}
       />
+      <PieChart
+        data={currShowPieData}
+        width={Dimensions.get("window").width}
+        height={220}
+        chartConfig={chartConfig}
+        accessor={"population"}
+        backgroundColor={"#e26a00"}
+        paddingLeft={"15"}
+        center={[10, 50]}
+        absolute
+      />
     </View>
   )
 }
@@ -114,3 +239,4 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 });
+

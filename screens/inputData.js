@@ -4,7 +4,6 @@ import { Text, View, Button, TextInput, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { useDispatch, useSelector, } from 'react-redux'
 import { allData, setData, setSnowData } from "../src/app/dataSliceReducer"
-//import { store } from "../src/app/store"
 
 export default function InputData({navigation}) {
     const [age, setAge] = useState("");
@@ -78,18 +77,18 @@ export default function InputData({navigation}) {
     )
   }
   
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1,
-        backgroundColor: '#ffe4e1',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-      },
-      inputBox: {
-        borderBottomWidth: 0.5,
-        height: 48,
-        borderBottomColor: '#000000',
-        marginBottom: 5,
-        alignItems: 'center'
-      }
-    });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffe4e1',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  inputBox: {
+    borderBottomWidth: 0.5,
+    height: 48,
+    borderBottomColor: '#000000',
+    marginBottom: 5,
+    alignItems: 'center'
+  }
+});
