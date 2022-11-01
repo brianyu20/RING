@@ -1,0 +1,7 @@
+{
+    "name": "Questions",
+    "questions":{
+        "q1" : "How was your day?",
+        "q2" : "How honest will you be with this form?"
+    }
+}

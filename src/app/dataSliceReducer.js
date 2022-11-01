@@ -7,110 +7,80 @@ const initialState = {
         {
             name: "20", 
             population: 0, 
-            color: "blue", 
+            color: "#f0f8ff", 
             legendFontColor: "#7F7F7F", 
             legendFontSize: 15
         },
         {
             name: "21", 
             population: 0, 
-            color: "black", 
+            color: "#8a2be2", 
             legendFontColor: "#7F7F7F", 
             legendFontSize: 15
         },
         {
             name: "22", 
             population: 0, 
-            color: "red", 
+            color: "#ff1493", 
             legendFontColor: "#7F7F7F", 
             legendFontSize: 15
         },
         {
             name: "23", 
             population: 0, 
-            color: "blue", 
+            color: "#d2691e", 
             legendFontColor: "#7F7F7F", 
             legendFontSize: 15
         },
         {
             name: "24", 
             population: 0, 
-            color: "black", 
+            color: "#dc143c", 
             legendFontColor: "#7F7F7F", 
             legendFontSize: 15
         },
         {
             name: "25", 
             population: 0, 
-            color: "red", 
+            color: "#00008b", 
             legendFontColor: "#7F7F7F", 
             legendFontSize: 15
         },
         {
             name: "26", 
             population: 0, 
-            color: "blue", 
+            color: "#006400", 
             legendFontColor: "#7F7F7F", 
             legendFontSize: 15
         },
         {
             name: "27", 
             population: 0, 
-            color: "black", 
+            color: "#ff8c00", 
             legendFontColor: "#7F7F7F", 
             legendFontSize: 15
         },
         {
             name: "28", 
             population: 0, 
-            color: "red", 
+            color: "#9400d3", 
             legendFontColor: "#7F7F7F", 
             legendFontSize: 15
         },
         {
             name: "29", 
             population: 0, 
-            color: "blue", 
+            color: "#ffd700", 
             legendFontColor: "#7F7F7F", 
             legendFontSize: 15
         },
-        // {
-        //     name: "Seoul",
-        //     population: 21500000,
-        //     color: "rgba(131, 167, 234, 1)",
-        //     legendFontColor: "#7F7F7F",
-        //     legendFontSize: 15
-        //   },
-        //   {
-        //     name: "Toronto",
-        //     population: 2800000,
-        //     color: "#F00",
-        //     legendFontColor: "#7F7F7F",
-        //     legendFontSize: 15
-        //   },
-        //   {
-        //     name: "Beijing",
-        //     population: 527612,
-        //     color: "red",
-        //     legendFontColor: "#7F7F7F",
-        //     legendFontSize: 15
-        //   },
-        //   {
-        //     name: "New York",
-        //     population: 8538000,
-        //     color: "#ffffff",
-        //     legendFontColor: "#7F7F7F",
-        //     legendFontSize: 15
-        //   },
-        //   {
-        //     name: "Moscow",
-        //     population: 11920000,
-        //     color: "rgb(0, 0, 255)",
-        //     legendFontColor: "#7F7F7F",
-        //     legendFontSize: 15
-        //   }
-
     ],
+    rating: 0,
+    //from home to q1
+    timeHome: 0,
+    timeOne : 0,
+    timeTwo: 0,
+    timeThree: 0,
     alcData : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
     weedData : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
     snowData : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
@@ -132,7 +102,23 @@ export const dataSlice = createSlice({
         setSelectedPieData: (state, action) => {
             console.log("got to setSelectedPieData in dataSliceReducer")
             state.initialState.selectedPieData = action.payload
-        }
+        },
+        incrementRating: (state, action) => {
+            console.log("got to incrementRating")
+            state.initialState.rating += action.payload
+        },
+        setHomeTime: (state, action) => {
+            state.initialState.timeHome = action.payload
+        },
+        setOneTime: (state, action) => {
+            state.initialState.timeOne = action.payload
+        },
+        setTwoTime: (state, action) => {
+            state.initialState.timeTwo = action.payload
+        },
+        setThreeTime: (state, action) => {
+            state.initialState.timeThree = action.payload
+        },
     }
 })
 export const allData = (state) => state.dataSlice.initialState.data
@@ -141,5 +127,10 @@ export const getSelectedPieData = (state) => state.dataSlice.initialState.select
 export const alcData = (state) => state.dataSlice.initialState.alcData
 export const weedData = (state) => state.dataSlice.initialState.weedData
 export const snowData = (state) => state.dataSlice.initialState.snowData
-export const { setData , setSelectedBezierData, setSelectedPieData } = dataSlice.actions
+export const getRating = (state) => state.dataSlice.initialState.rating
+export const getHomeTime = (state) => state.dataSlice.initialState.timeHome
+export const getOneTime = (state) => state.dataSlice.initialState.timeOne
+export const getTwoTime = (state) => state.dataSlice.initialState.timeTwo
+export const getThreeTime = (state) => state.dataSlice.initialState.timeThree
+export const { setData , setHomeTime, setSelectedBezierData, setSelectedPieData, incrementRating, setOneTime, setThreeTime, setTwoTime } = dataSlice.actions
 export default dataSlice.reducer

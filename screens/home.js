@@ -2,12 +2,22 @@ import React, { Component } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button, TextInput, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux'
-import { incrementTime } from "../src/app/timeSliceReducer"
+import { incrementRating, setHomeTime } from "../src/app/dataSliceReducer"
 
 export default function HomeScreen({navigation}) {
   const dispatch = useDispatch()
   const pressHandler = () => {
-      navigation.navigate('InputData')
+      const timeEnd = performance.now()
+      let elapsedTime = timeEnd - timeStart
+      dispatch(incrementRating(elapsedTime))
+      dispatch(setHomeTime(elapsedTime))
+      navigation.navigate('questionOne')
+  }
+  let firstEntry = true;
+  let timeStart = null;
+  if (firstEntry){
+    timeStart = performance.now()
+    firstEntry = false;
   }
 
   return(

@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import { Text, View, Button, TextInput, StyleSheet, Dimensions } from 'react-native';
 import { useDispatch, useSelector, } from 'react-redux'
-import { allData, setSelectedBezierData, setSelectedPieData, getSelectedData, getSelectedPieData } from "../src/app/dataSliceReducer"
+import { allData,
+  getRating, 
+  setSelectedBezierData, 
+  setSelectedPieData, 
+  getSelectedData, 
+  getSelectedPieData,
+  getHomeTime,
+  getOneTime,
+  getTwoTime,
+  getThreeTime, } from "../src/app/dataSliceReducer"
 import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart } from "react-native-chart-kit";
 
-export default function showData({navigation}) {
+export default function ShowData({navigation}) {
   const dispatch = useDispatch()
   let showedAlc = false;
   let showedWeed = false;
@@ -12,12 +21,18 @@ export default function showData({navigation}) {
   let currAllData = useSelector(allData)
   let currShowdata = useSelector(getSelectedData)
   let currShowPieData = useSelector(getSelectedPieData)
+  let currRating = useSelector(getRating)
+  let currTimeHome = useSelector(getHomeTime)
+  let currTimeOne = useSelector(getOneTime)
+  let currTimeTwo = useSelector(getTwoTime)
+  let currTimeThree = useSelector(getThreeTime)
+
   const chartConfig = {
     backgroundGradientFrom: "red",
     backgroundGradientFromOpacity: 0,
     backgroundGradientTo: "red",
     backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    color: (opacity = 1) => `rgba(40, 67, 135, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
     useShadowColorFromDataset: false // optional
@@ -26,70 +41,70 @@ export default function showData({navigation}) {
     {
         name: "20", 
         population: 0, 
-        color: "rgba(131, 167, 234, 1)", 
+        color: "#f0f8ff", 
         legendFontColor: "#7F7F7F", 
         legendFontSize: 15
     },
     {
         name: "21", 
-        population: 0, 
-        color: "#F00", 
+        population: 10, 
+        color: "#8a2be2", 
         legendFontColor: "#7F7F7F", 
         legendFontSize: 15
     },
     {
         name: "22", 
         population: 0, 
-        color: "red", 
+        color: "#ff1493", 
         legendFontColor: "#7F7F7F", 
         legendFontSize: 15
     },
     {
         name: "23", 
         population: 0, 
-        color: "#ffffff", 
+        color: "#d2691e", 
         legendFontColor: "#7F7F7F", 
         legendFontSize: 15
     },
     {
         name: "24", 
         population: 0, 
-        color: "rgba(131, 167, 234, 1)", 
+        color: "#dc143c", 
         legendFontColor: "#7F7F7F", 
         legendFontSize: 15
     },
     {
         name: "25", 
         population: 0, 
-        color: "#F00", 
+        color: "#00008b", 
         legendFontColor: "#7F7F7F", 
         legendFontSize: 15
     },
     {
         name: "26", 
         population: 0, 
-        color: "rgba(131, 167, 234, 1)", 
+        color: "#006400", 
         legendFontColor: "#7F7F7F", 
         legendFontSize: 15
     },
     {
         name: "27", 
         population: 0, 
-        color: "red", 
+        color: "#ff8c00", 
         legendFontColor: "#7F7F7F", 
         legendFontSize: 15
     },
     {
         name: "28", 
         population: 0, 
-        color: "rgba(131, 167, 234, 1)", 
+        color: "#9400d3", 
         legendFontColor: "#7F7F7F", 
         legendFontSize: 15
     },
     {
         name: "29", 
         population: 0, 
-        color: "#F00", 
+        color: "#ffd700", 
         legendFontColor: "#7F7F7F", 
         legendFontSize: 15
     },
@@ -152,25 +167,25 @@ export default function showData({navigation}) {
         let currIndex = currAge % 20;
         console.log("currAge: " + currAge)
         selectPieData[currIndex]["population"] += parseInt(allData[i][type])
-        // if (!(currAge in selectPieData)){
-        //   console.log("first time seeing age: " + currAge)
-        //   selectPieData[currAge] = parseInt(allData[i][type], 10)
-        // }
-        // else{
-        //   console.log("not the first time seeing age: " + currAge)
-        //   selectPieData[currAge] += parseInt(allData[i][type], 10)
-        // }
       }
     }
-    // 
   }
 
   return(
     <View>
       <Text>Click to show data</Text>
-        <Button title = "alc" onPress={showAlc} />
+      <View>
+      <Button title = "alc" onPress={showAlc} />
         <Button title = "weed" onPress={showWeed} />
         <Button title = "snow" onPress={showSnow} />
+      </View>
+        
+      <Text> Rating: {currRating} </Text>
+      <Text> Time spend on home screen: {currTimeHome} </Text>
+      <Text> Time spend on question 1: {currTimeOne} </Text>
+      <Text> Time spend on question 2: {currTimeTwo} </Text>
+      <Text> Time spend on question 3: {currTimeThree} </Text>
+
      
       <LineChart
         data={{
@@ -214,9 +229,9 @@ export default function showData({navigation}) {
         height={220}
         chartConfig={chartConfig}
         accessor={"population"}
-        backgroundColor={"#e26a00"}
+        backgroundColor={"#20b2aa"}
         paddingLeft={"15"}
-        center={[10, 50]}
+        center={[10, 18]}
         absolute
       />
     </View>
