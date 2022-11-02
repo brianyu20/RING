@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, TextInput, StyleSheet, Dimensions } from 'react-native';
+import { Text, View, Button, TextInput, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { useDispatch, useSelector, } from 'react-redux'
 import { allData,
   getRating, 
@@ -121,11 +121,11 @@ export default function ShowData({navigation}) {
     console.log("here")
     processBezier(currAllData, snowData, "snow")
     processPie(currAllData, snowPieData, "snow")
-    for (let i = 0; i < snowPieData.length; i++){
-      for (var key in snowPieData[i]){
-        console.log("key: " + key + " value: " + snowPieData[i][key])
-      }
-    }
+    // for (let i = 0; i < snowPieData.length; i++){
+    //   for (var key in snowPieData[i]){
+    //     console.log("key: " + key + " value: " + snowPieData[i][key])
+    //   }
+    // }
     dispatch(setSelectedBezierData(snowData))
     dispatch(setSelectedPieData(snowPieData))
   }
@@ -172,7 +172,7 @@ export default function ShowData({navigation}) {
   }
 
   return(
-    <View>
+    <ScrollView>
       <Text>Click to show data</Text>
       <View>
       <Button title = "alc" onPress={showAlc} />
@@ -234,7 +234,7 @@ export default function ShowData({navigation}) {
         center={[10, 18]}
         absolute
       />
-    </View>
+    </ScrollView>
   )
 }
 
