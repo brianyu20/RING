@@ -26,4 +26,5 @@ export default function questionOne({navigation}){
             <Button title = 'Go to question 2' onPress={pressHandler}/>
         </View>
     )
+    //testing
 }
