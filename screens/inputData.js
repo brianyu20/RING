@@ -46,7 +46,7 @@ export default function InputData({navigation}) {
     const pressHandler = () => {
       navigation.navigate('showData')
     }
-
+//hhass
     return(
       <View style={styles.container}>
         <Text style={{fontSize: 20, color: '#000000'}}>Input your data</Text>
