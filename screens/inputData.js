@@ -76,7 +76,7 @@ export default function InputData({navigation}) {
       </View>
     )
   }
-  
+  //this is another change 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
