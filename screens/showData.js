@@ -165,7 +165,6 @@ export default function ShowData({navigation}) {
         //console.log("age in string: " + allData[i]["age"])
         let currAge = parseInt(allData[i]["age"], 10)
         let currIndex = currAge % 20;
-        console.log("currAge: " + currAge)
         selectPieData[currIndex]["population"] += parseInt(allData[i][type])
       }
     }
