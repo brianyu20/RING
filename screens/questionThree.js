@@ -16,7 +16,7 @@ export default function questionThree({navigation}){
 
     const pressHandler = () => {
         const timeEnd = performance.now()
-        let elapsedTime = timeEnd - timeStart
+        let elapsedTime = (timeEnd - timeStart) / 3600
         dispatch(incrementRating(elapsedTime))
         dispatch(setThreeTime(elapsedTime))
         navigation.navigate('InputData')

@@ -15,7 +15,7 @@ export default function questionOne({navigation}){
     }
     const pressHandler = () => {
         const timeEnd = performance.now()
-        let elapsedTime = timeEnd - timeStart
+        let elapsedTime = (timeEnd - timeStart) / 3600
         dispatch(incrementRating(elapsedTime))
         dispatch(setOneTime(elapsedTime))
         navigation.navigate('questionTwo')
