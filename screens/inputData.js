@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Text, View, Button, TextInput, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { useDispatch, useSelector, } from 'react-redux'
-import { setData, getHomeTime, getOneTime, getTwoTime, getThreeTime } from "../src/app/dataSliceReducer"
+import { setData, getHomeTime, getOneTime, getTwoTime, getThreeTime, getAnsOne, getAnsTwo, getAnsThree } from "../src/app/dataSliceReducer"
 
 export default function InputData({navigation}) {
     const [age, setAge] = useState("");
@@ -15,6 +15,9 @@ export default function InputData({navigation}) {
     let currTimeOne = useSelector(getOneTime)
     let currTimeTwo = useSelector(getTwoTime)
     let currTimeThree = useSelector(getThreeTime)
+    let currAnsOne = useSelector(getAnsOne)
+    let currAnsTwo = useSelector(getAnsTwo)
+    let currAnsThree = useSelector(getAnsThree)
     const dispatch = useDispatch()
 
     const putOne = () => {
@@ -24,7 +27,11 @@ export default function InputData({navigation}) {
       }
       console.log("home: " + currTimeHome)
       console.log(currTimeOne)
-      axios.post('http://localhost:4000/usage', {age, zip, alc, weed, snow, currTimeHome, currTimeOne, currTimeTwo, currTimeThree})
+      axios.post('http://localhost:4000/usage', {
+        age, zip, alc, weed, snow, 
+        currTimeHome, currTimeOne, currTimeTwo, currTimeThree,
+        currAnsOne, currAnsTwo, currAnsThree
+      })
       .then(function(response){
         //console.log(response);
         //console.log("age" + testData.age);
