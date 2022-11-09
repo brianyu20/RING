@@ -10,14 +10,14 @@ import { allData,
   getHomeTime,
   getOneTime,
   getTwoTime,
-  getThreeTime, } from "../src/app/dataSliceReducer"
+  getThreeTime, 
+  getAnsOne,
+  getAnsTwo,
+  getAnsThree,} from "../src/app/dataSliceReducer"
 import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart } from "react-native-chart-kit";
 
 export default function ShowData({navigation}) {
   const dispatch = useDispatch()
-  let showedAlc = false;
-  let showedWeed = false;
-  let showedSnow = false;
   let currAllData = useSelector(allData)
   let currShowdata = useSelector(getSelectedData)
   let currShowPieData = useSelector(getSelectedPieData)
@@ -26,6 +26,9 @@ export default function ShowData({navigation}) {
   let currTimeOne = useSelector(getOneTime)
   let currTimeTwo = useSelector(getTwoTime)
   let currTimeThree = useSelector(getThreeTime)
+  let currAnsOne = useSelector(getAnsOne)
+  let currAnsTwo = useSelector(getAnsTwo)
+  let currAnsThree = useSelector(getAnsThree)
 
   const chartConfig = {
     backgroundGradientFrom: "red",
@@ -184,6 +187,9 @@ export default function ShowData({navigation}) {
       <Text> Time spend on question 1: {currTimeOne} </Text>
       <Text> Time spend on question 2: {currTimeTwo} </Text>
       <Text> Time spend on question 3: {currTimeThree} </Text>
+      <Text> Answer to question 1: {currAnsOne} </Text>
+      <Text> Answer to question 2: {currAnsTwo} </Text>
+      <Text> Answer to question 3: {currAnsThree} </Text>
 
      
       <LineChart

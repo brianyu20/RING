@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button, TextInput, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux'
-import { incrementRating, setOneTime } from "../src/app/dataSliceReducer"
+import { incrementRating, setOneTime, setAnsOne } from "../src/app/dataSliceReducer"
+import RNPickerSelect from 'react-native-picker-select';
+
 
 
 export default function questionOne({navigation}){
@@ -22,7 +24,15 @@ export default function questionOne({navigation}){
     }
     return(
         <View>
-            <Text> Question 1</Text>
+            <Text> How are you feeling today?</Text>
+            <RNPickerSelect
+                onValueChange={(value) => dispatch(setAnsOne(value))}
+                items={[
+                    { label: 'Great. What a day!', value: '1' },
+                    { label: 'Eh, could be better', value: '2' },
+                    { label: 'Screw this day', value: '3' },
+                ]}
+            />
             <Button title = 'Go to question 2' onPress={pressHandler}/>
         </View>
     )
