@@ -25,23 +25,34 @@ export default function InputData({navigation}) {
         alert('All fields are required');
         return;
       }
-      console.log("home: " + currTimeHome)
-      console.log(currTimeOne)
+      //posting to raw data collection
       axios.post('http://localhost:4000/usage', {
-        age, zip, alc, weed, snow, 
-        currTimeHome, currTimeOne, currTimeTwo, currTimeThree,
-        currAnsOne, currAnsTwo, currAnsThree
+        age, zip, alc, weed, snow
       })
       .then(function(response){
         //console.log(response);
         //console.log("age" + testData.age);
         console.log(response);
-        alert('Data is submitted sucessfully');
+        
         //dispatching to state right away 
         processData();
       })
       .catch(function(error){
         console.log(error);
+      });
+
+      //posting to data with weight metrics
+      axios.post("http://localhost:4000/usage_weighted", {
+        age, zip, alc, weed, snow, 
+        currTimeHome, currTimeOne, currTimeTwo, currTimeThree,
+        currAnsOne, currAnsTwo, currAnsThree
+      })
+      .then(function(response){
+        console.log(response);
+        alert('Data is submitted sucessfully');
+      })
+      .catch(function(error){
+        console.log("oops" + error);
       });
     }
 
