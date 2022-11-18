@@ -81,6 +81,9 @@ const initialState = {
     timeOne : 0,
     timeTwo: 0,
     timeThree: 0,
+    ansOne: "",
+    ansTwo: "",
+    ansThree: "",
     alcData : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
     weedData : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
     snowData : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
@@ -119,6 +122,15 @@ export const dataSlice = createSlice({
         setThreeTime: (state, action) => {
             state.initialState.timeThree = action.payload
         },
+        setAnsOne: (state, action) => {
+            state.initialState.ansOne = action.payload
+        },
+        setAnsTwo: (state, action) => {
+            state.initialState.ansTwo = action.payload
+        },
+        setAnsThree: (state, action) => {
+            state.initialState.ansThree = action.payload
+        },
     }
 })
 export const allData = (state) => state.dataSlice.initialState.data
@@ -132,5 +144,19 @@ export const getHomeTime = (state) => state.dataSlice.initialState.timeHome
 export const getOneTime = (state) => state.dataSlice.initialState.timeOne
 export const getTwoTime = (state) => state.dataSlice.initialState.timeTwo
 export const getThreeTime = (state) => state.dataSlice.initialState.timeThree
-export const { setData , setHomeTime, setSelectedBezierData, setSelectedPieData, incrementRating, setOneTime, setThreeTime, setTwoTime } = dataSlice.actions
+export const getAnsOne = (state) => state.dataSlice.initialState.ansOne
+export const getAnsTwo = (state) => state.dataSlice.initialState.ansTwo
+export const getAnsThree = (state) => state.dataSlice.initialState.ansThree
+
+export const { setData , 
+    setHomeTime, 
+    setSelectedBezierData, 
+    setSelectedPieData, 
+    incrementRating, 
+    setOneTime, 
+    setThreeTime, 
+    setTwoTime,
+    setAnsOne,
+    setAnsTwo,
+    setAnsThree, } = dataSlice.actions
 export default dataSlice.reducer

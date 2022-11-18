@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Text, View, Button, TextInput, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { useDispatch, useSelector, } from 'react-redux'
-import { allData, setData, setSnowData } from "../src/app/dataSliceReducer"
+import { setData, getHomeTime, getOneTime, getTwoTime, getThreeTime, getAnsOne, getAnsTwo, getAnsThree } from "../src/app/dataSliceReducer"
 
 export default function InputData({navigation}) {
     const [age, setAge] = useState("");
@@ -11,6 +11,13 @@ export default function InputData({navigation}) {
     const [alc, setAlc] = useState("");
     const [weed, setWeed] = useState("");
     const [snow, setSnow] = useState("");
+    let currTimeHome = useSelector(getHomeTime)
+    let currTimeOne = useSelector(getOneTime)
+    let currTimeTwo = useSelector(getTwoTime)
+    let currTimeThree = useSelector(getThreeTime)
+    let currAnsOne = useSelector(getAnsOne)
+    let currAnsTwo = useSelector(getAnsTwo)
+    let currAnsThree = useSelector(getAnsThree)
     const dispatch = useDispatch()
 
     const putOne = () => {
@@ -18,17 +25,34 @@ export default function InputData({navigation}) {
         alert('All fields are required');
         return;
       }
-      axios.post('http://localhost:4000/usage', {age, zip, alc, weed, snow})
+      //posting to raw data collection
+      axios.post('http://localhost:4000/usage', {
+        age, zip, alc, weed, snow
+      })
       .then(function(response){
         //console.log(response);
         //console.log("age" + testData.age);
         console.log(response);
-        alert('Data is submitted sucessfully');
-        //dispatching it state right away 
+        
+        //dispatching to state right away 
         processData();
       })
       .catch(function(error){
         console.log(error);
+      });
+
+      //posting to data with weight metrics
+      axios.post("http://localhost:4000/usage_weighted", {
+        age, zip, alc, weed, snow, 
+        currTimeHome, currTimeOne, currTimeTwo, currTimeThree,
+        currAnsOne, currAnsTwo, currAnsThree
+      })
+      .then(function(response){
+        console.log(response);
+        alert('Data is submitted sucessfully');
+      })
+      .catch(function(error){
+        console.log("oops" + error);
       });
     }
 
